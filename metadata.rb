@@ -1,5 +1,5 @@
 # Encoding: utf-8
-name             'cookbook-jubatus'
+name             'jubatus'
 maintainer       'Chisato HASEGAWA'
 maintainer_email 'chase0213+dev@gmail.com'
 license          'MIT'

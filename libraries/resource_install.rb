@@ -15,5 +15,6 @@ class Chef
 
     attribute(:package_url, kind_of: String, default: nil)
     attribute(:package_options, kind_of: String, default: nil)
+    attribute(:package_role, kind_of: String, equal_to: %w(jubatus jubatus-client), default: nil)
   end
 end
