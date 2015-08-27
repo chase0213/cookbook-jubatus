@@ -1,61 +1,71 @@
-cookbook-jubatus Cookbook
+Chef cookbook for Jubatus
 =========================
-TODO: Enter the cookbook description here.
 
-e.g.
-This cookbook makes your favorite breakfast sandwhich.
-
-Requirements
-------------
-TODO: List your cookbook requirements. Be sure to include any requirements this cookbook has on platforms, libraries, other cookbooks, packages, operating systems, etc.
-
-e.g.
-#### packages
-- `toaster` - cookbook-jubatus needs toaster to brown your bagel.
-
-Attributes
-----------
-TODO: List you cookbook attributes here.
-
-e.g.
-#### cookbook-jubatus::default
-<table>
-  <tr>
-    <th>Key</th>
-    <th>Type</th>
-    <th>Description</th>
-    <th>Default</th>
-  </tr>
-  <tr>
-    <td><tt>['cookbook-jubatus']['bacon']</tt></td>
-    <td>Boolean</td>
-    <td>whether to include bacon</td>
-    <td><tt>true</tt></td>
-  </tr>
-</table>
+This cookbook is a library cookbook to install or configure jubatus server and client, supporting Chef 12.x and higher.
+It is supposed to be used by wrapped in your own cookbook.
 
 Usage
------
-#### cookbook-jubatus::default
-TODO: Write usage instructions for each cookbook.
+------
 
-e.g.
-Just include `cookbook-jubatus` in your node's `run_list`:
+First of all, you need to create your own cookbook,
+and add following line to your cookbook:
 
-```json
-{
-  "name":"my_node",
-  "run_list": [
-    "recipe[cookbook-jubatus]"
-  ]
-}
+```ruby
+depends 'jubatus'
+```
+
+Then, you can use resources provided by this cookbook.
+Available resources are listed on below.
+
+Resources
+----------
+
+#### jubatus_user
+
+Actions: `:create`, `:remove`
+
+Creates or removes user and group for jubatus.
+
+Examples:
+
+```
+jubatus_user 'jubatus' do
+  username 'jubatus'
+end
+```
+
+```
+jubatus_user 'jubatus' do
+  shell '/bin/bash'
+  home_dir '/home/jubatus'
+  groupname 'ml'
+  action :create
+end
+```
+
+#### jubatus_install
+
+Actions: `:install`, `:remove`
+
+Downloads the jubatus server or client, and install to the system.
+So far, installation via `package` is only provided.
+
+`package_role` attribute is required, and must be 'jubatus' or 'jubatus-client'.
+
+Examples:
+
+```ruby
+jubatus_install 'jubatus installation' do
+  type :package
+  version '0.8.0-1.el6'
+  package_role 'jubatus'
+  action :install
+end
 ```
 
 Contributing
 ------------
-TODO: (optional) If this is a public cookbook, detail the process for contributing. If this is a private cookbook, remove this section.
 
-e.g.
 1. Fork the repository on Github
 2. Create a named feature branch (like `add_component_x`)
 3. Write you change
@@ -63,6 +73,8 @@ e.g.
 5. Run the tests, ensuring they all pass
 6. Submit a Pull Request using Github
 
-License and Authors
--------------------
-Authors: TODO: List authors
+License
+-------
+
+- MIT License
+
