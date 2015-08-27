@@ -50,12 +50,15 @@ Actions: `:install`, `:remove`
 Downloads the jubatus server or client, and install to the system.
 So far, installation via `package` is only provided.
 
+`package_role` attribute is required, and must be 'jubatus' or 'jubatus-client'.
+
 Examples:
 
 ```ruby
 jubatus_install 'jubatus installation' do
   type :package
   version '0.8.0-1.el6'
+  package_role 'jubatus'
   action :install
 end
 ```
