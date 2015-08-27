@@ -2,7 +2,7 @@ Chef cookbook for Jubatus
 =========================
 
 This cookbook is a library cookbook to install or configure jubatus server and client, supporting Chef 12.x and higher.
-It is supposed to be used this by wrapped in your own cookbook.
+It is supposed to be used by wrapped in your own cookbook.
 
 Usage
 ------
